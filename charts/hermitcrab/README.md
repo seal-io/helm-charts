@@ -19,7 +19,7 @@ To install the chart with the release name `my-release`:
 
 ```shell
 helm repo add seal-io https://seal-io.github.io/helm-charts
-helm install my-release seal-io/hermitcrab --version 0.1.0
+helm install my-release seal-io/hermitcrab --version 0.1.1
 ```
 
 Also be able to install from OCI registry:
@@ -28,7 +28,7 @@ Also be able to install from OCI registry:
 # latest version
 helm install my-release oci://ghcr.io/seal-io/helm-charts/hermitcrab
 # with specific version
-helm install my-release oci://ghcr.io/seal-io/helm-charts/hermitcrab --version 0.1.0
+helm install my-release oci://ghcr.io/seal-io/helm-charts/hermitcrab --version 0.1.1
 ```
 
 ## Uninstalling
