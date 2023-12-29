@@ -1,0 +1,184 @@
+##
+## Global parameters
+##
+
+global:
+  # -- Configure image registry.
+  imageRegistry: ""
+  # -- Configure image pull secrets.
+  # <br/> Example: <br/>
+  # ```
+  # imagePullSecrets: ["my-image-pull-secret-name"]
+  # ```
+  imagePullSecrets: [ ]
+  # -- Configure storage class.
+  storageClass: ""
+
+##
+## Common parameters
+##
+
+# -- Partially override common.fullname template (will maintain the release name).
+nameOverride: ""
+
+# -- Fully override common.fullname template.
+fullnameOverride: ""
+
+# -- Partially override common.namespace.
+namespaceOverride: ""
+
+# -- Additional common annotations to add to all resources.
+commonAnnotations: { }
+
+# -- Additional common labels to add to all resources.
+commonLabels: { }
+
+##
+## Hermit Crab parameters
+##
+
+hermitcrab:
+  # -- Name of the Hermit Crab server.
+  name: hermitcrab
+
+  # -- Number of Hermit Crab Pods to run.
+  replicas: 1
+
+  image:
+    # -- Image name.
+    repository: sealio/hermitcrab
+    # -- Image tag.
+    tag: v0.1.1
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+  # -- Entrypoint command.
+  command:
+    - hermitcrab
+
+  # -- Entrypoint arguments.
+  args:
+    - --log-debug
+    - --log-verbosity=4
+
+  # -- Environment variables.
+  # <br/> Example: <br/>
+  # ```
+  # env: [{"name": "MY_ENV_VAR", "value": "my-env-var-value"}]
+  # ```
+  env: [ ]
+
+  # -- Environment reference variables.
+  # <br/> Example: <br/>
+  # ```
+  # envFrom: [{"configMapRef": {"name": "my-configmap-name"}}]
+  # ```
+  envFrom: [ ]
+
+  # -- Resource limits and requests.
+  # <br/> Example: <br/>
+  # ```
+  # resources: {"limits": {"cpu": "2", "memory": "4Gi"}, "requests": {"cpu": "500m", "memory": "512Mi"}}
+  # ```
+  resources: { }
+
+  startupProbe:
+    # -- Startup probe initial delay.
+    initialDelaySeconds: 0
+    # -- Startup probe timeout.
+    timeoutSeconds: 1
+    # -- Startup probe period.
+    periodSeconds: 5
+    # -- Startup probe failure threshold.
+    failureThreshold: 10
+    # -- Startup probe success threshold.
+    successThreshold: 1
+
+  readinessProbe:
+    # -- Enable readiness probe.
+    enabled: true
+    # -- Readiness probe timeout.
+    timeoutSeconds: 5
+    # -- Readiness probe period.
+    periodSeconds: 5
+    # -- Readiness probe failure threshold.
+    failureThreshold: 3
+    # -- Readiness probe success threshold.
+    successThreshold: 1
+
+  livenessProbe:
+    # -- Enable liveness probe.
+    enabled: true
+    # -- Liveness probe timeout.
+    timeoutSeconds: 5
+    # -- Liveness probe period.
+    periodSeconds: 5
+    # -- Liveness probe failure threshold.
+    failureThreshold: 10
+    # -- Liveness probe success threshold.
+    successThreshold: 1
+
+  # Configure using PodDisruptionBudget.
+  pdb:
+    # -- Enable PodDisruptionBudget.
+    enabled: true
+    # -- Minimum number of Pods that must be available.
+    minAvailable: 1
+    # -- Maximum number of Pods that can be unavailable.
+    maxUnavailable: 0
+
+  # Configure using Service.
+  service:
+    # -- Enable Service.
+    enabled: true
+    # -- Service type.
+    type: ClusterIP
+    # -- Service ports.
+    ports:
+      https: 443
+      http: 80
+    # -- Service session affinity.
+    sessionAffinity: ClientIP
+    # -- Service session affinity config.
+    # <br/> Example: <br/>
+    # ```
+    # sessionAffinityConfig: {"clientIP": {"timeoutSeconds": 300}}
+    # ```
+    sessionAffinityConfig: { }
+
+  # Configure using PersistentVolumeClaim.
+  pvc:
+    # -- Enable PersistentVolumeClaim.
+    enabled: true
+    # -- PersistentVolumeClaim sub path to mount.
+    subPath: ""
+    # -- PersistentVolumeClaim storage class.
+    storageClass: ""
+    # -- PersistentVolumeClaim access modes.
+    accessModes:
+      - ReadWriteOnce
+    # -- PersistentVolumeClaim storage size.
+    size: 1Gi
+
+  # Configure using TLS.
+  tls:
+    # -- Enable TLS.
+    enabled: true
+    # -- Provide a Domain Name to gain a Let's Encrypt certificate via ACME.
+    domainName: ""
+    # -- Provide the name of a "kubernetes.io/tls" Secret contains a TLS certificate and key.
+    secretName: ""
+
+  # Configure using another Provider Mirror.
+  providersMirror:
+    # -- Enable sharing the `/usr/share/terraform/providers/plugins` directory from target Container.
+    # See https://github.com/seal-io/hermitcrab.
+    enabled: true
+
+    image:
+      # -- Image name.
+      repository: sealio/terraform-deployer
+      # -- Image tag.
+      tag: v1.5.7-seal.1
+      # -- Image pull policy.
+      pullPolicy: IfNotPresent

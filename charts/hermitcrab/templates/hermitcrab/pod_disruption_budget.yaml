@@ -1,0 +1,33 @@
+{{- define "pdb.apiVersion" -}}
+  {{- if .Capabilities.APIVersions.Has "policy/v1" }}
+    {{- printf "policy/v1" -}}
+  {{- else }}
+    {{- printf "policy/v1beta1" -}}
+  {{- end }}
+{{- end }}
+
+{{- $replicas := int .Values.hermitcrab.replicas }}
+{{- if and .Values.hermitcrab.pdb.enabled (gt $replicas 1) }}
+apiVersion: {{ include "pdb.apiVersion" . }}
+kind: PodDisruptionBudget
+metadata:
+  namespace: {{ include "hermitcrab.namespace" . }}
+  name: {{ include "hermitcrab.name" . }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- toYaml .Values.commonAnnotations | nindent 4 }}
+  {{- end }}
+  labels: {{- include "hermitcrab.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+    {{- if .Values.commonLabels }}{{- toYaml .Values.commonLabels | nindent 4 }}{{- end }}
+spec:
+  {{- if .Values.hermitcrab.pdb.minAvailable }}
+  minAvailable: {{ .Values.hermitcrab.pdb.minAvailable }}
+  {{- end  }}
+  {{- if .Values.hermitcrab.pdb.maxUnavailable }}
+  maxUnavailable: {{ .Values.hermitcrab.pdb.maxUnavailable }}
+  {{- end  }}
+  selector:
+    matchLabels: {{- include "hermitcrab.labels" . | nindent 6 }}
+      app.kubernetes.io/component: server
+      {{- if .Values.commonLabels }}{{- toYaml .Values.commonLabels | nindent 6 }}{{- end }}
+{{- end }}

@@ -1,0 +1,51 @@
+{{- if .Values.hermitcrab.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ include "hermitcrab.namespace" . }}
+  name: {{ include "hermitcrab.name" . }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- toYaml .Values.commonAnnotations | nindent 4 }}
+  {{- end }}
+  labels: {{- include "hermitcrab.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+    {{- if .Values.commonLabels }}{{- toYaml .Values.commonLabels | nindent 4 }}{{- end }}
+spec:
+  type: {{ .Values.hermitcrab.service.type }}
+  {{- if .Values.hermitcrab.service.sessionAffinity }}
+  sessionAffinity: {{ .Values.hermitcrab.service.sessionAffinity }}
+  {{- end }}
+  {{- if .Values.hermitcrab.service.sessionAffinityConfig }}
+  sessionAffinityConfig: {{- toYaml .Values.hermitcrab.service.sessionAffinityConfig | nindent 4 }}
+  {{- end }}
+  ports:
+    - name: http
+      port: {{ .Values.hermitcrab.service.ports.http }}
+      targetPort: http
+      protocol: TCP
+    - name: https
+      port: {{ .Values.hermitcrab.service.ports.https }}
+      targetPort: https
+      protocol: TCP
+  selector: {{- include "hermitcrab.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+    {{- if .Values.commonLabels }}{{- toYaml .Values.commonLabels | nindent 4 }}{{- end }}
+{{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ include "hermitcrab.namespace" . }}
+  name: {{ include "hermitcrab.name" . }}-headless
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- toYaml .Values.commonAnnotations | nindent 4 }}
+  {{- end }}
+  labels: {{- include "hermitcrab.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+    {{- if .Values.commonLabels }}{{- toYaml .Values.commonLabels | nindent 4 }}{{- end }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector: {{- include "hermitcrab.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+      {{- if .Values.commonLabels }}{{- toYaml .Values.commonLabels | nindent 4 }}{{- end }}

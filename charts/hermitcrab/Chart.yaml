@@ -1,0 +1,32 @@
+apiVersion: v2
+type: application
+description: A Helm chart for Hermit Crab.
+name: hermitcrab
+version: 0.1.0
+appVersion: v0.1.1
+kubeVersion: ">=1.19.0-0"
+home: https://seal.io/
+icon: https://avatars.githubusercontent.com/u/101077428?v=4&s=64
+sources:
+  - https://github.com/seal-io/hermitcrab
+maintainers:
+  - name: Seal Engineer Team
+    email: engineering@seal.io
+keywords:
+  - terraform provider mirror
+  - hermitcrab
+annotations:
+  "artifacthub.io/license": Apache-2.0
+  "artifacthub.io/maintainers": |
+    - name: Seal Engineer Team
+      email: engineering@seal.io
+  "artifacthub.io/links": |
+    - name: Chart Source
+      url: https://github.com/seal-io/helm-charts
+    - name: Upstream Project
+      url: https://github.com/seal-io/hermitcrab
+    - name: Company Website
+      url: https://seal.io
+  "artifacthub.io/signKey": |
+    fingerprint: 46238A8F45832921944DCD71DD0781A1A4227958
+    url: https://keybase.io/sealio/pgp_keys.asc

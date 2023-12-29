@@ -1,0 +1,6 @@
+fullnameOverride: "hermitcrab"
+namespaceOverride: "default"
+commonAnnotations:
+  "awesome": "hermitcrab"
+commonLabels:
+  "awesome": "hermitcrab"
