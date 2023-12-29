@@ -18,7 +18,23 @@ on:
       - "charts/**"
 
 jobs:
+  lint-artifacthub:
+    timeout-minutes: 60
+    runs-on: ubuntu-22.04
+    container:
+      image: artifacthub/ah:v1.16.0
+      options: --user 1001
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run
+        shell: sh
+        working-directory: ./charts
+        run: ah lint
+
   ci:
+    needs:
+      - lint-artifacthub
     timeout-minutes: 60
     runs-on: ubuntu-22.04
     steps:
