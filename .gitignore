@@ -1,0 +1,12 @@
+# Files
+.DS_Store
+**/*.tgz
+
+# Dirs
+.idea/
+.vscode/
+.kube/
+.docker/
+.sbin/
+.dist/
+**/charts/*/charts

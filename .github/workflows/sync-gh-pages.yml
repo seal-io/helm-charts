@@ -1,0 +1,44 @@
+name: sync-gh-pages
+
+permissions:
+  contents: write # to push gh-pages branch
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_dispatch: { }
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'README.md'
+
+jobs:
+  sync:
+    timeout-minutes: 60
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Copy
+        run: |
+          cp -f README.md ${{ runner.temp }}/README.md
+        continue-on-error: true
+      - name: Checkout Github Pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Sync
+        run: |
+          cp -f ${{ runner.temp }}/README.md .
+          
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          
+          git add README.md
+          
+          git commit --signoff -m "chore: sync from main"
+          git push
+        continue-on-error: true

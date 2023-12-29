@@ -1,0 +1,45 @@
+name: ci
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_dispatch: { }
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "charts/**"
+
+jobs:
+  ci:
+    timeout-minutes: 60
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Toolbox
+        timeout-minutes: 5
+        uses: actions/cache@v3
+        with:
+          # restore/save service binaries, e.g. helm-docs.
+          key: toolbox-${{ runner.os }}
+          path: |
+            ${{ github.workspace }}/.sbin
+      - name: Setup Kind
+        uses: helm/kind-action@v1.8.0
+        with:
+          config: .github/configs/kind-config.yaml
+      - name: Make
+        run: make ci
+        env:
+          LINT_DIRTY: "true"
