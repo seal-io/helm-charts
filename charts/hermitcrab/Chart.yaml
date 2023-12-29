@@ -2,11 +2,11 @@ apiVersion: v2
 type: application
 description: A Helm chart for Hermit Crab.
 name: hermitcrab
-version: 0.1.0
+version: 0.1.1
 appVersion: v0.1.1
 kubeVersion: ">=1.19.0-0"
 home: https://seal.io/
-icon: https://avatars.githubusercontent.com/u/101077428?v=4&s=64
+icon: https://avatars.githubusercontent.com/u/101077428?v=4
 sources:
   - https://github.com/seal-io/hermitcrab
 maintainers:
@@ -30,3 +30,5 @@ annotations:
   "artifacthub.io/signKey": |
     fingerprint: 46238A8F45832921944DCD71DD0781A1A4227958
     url: https://keybase.io/sealio/pgp_keys.asc
+  "artifacthub.io/changes": |
+    - Modify icon
