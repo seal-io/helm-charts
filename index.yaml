@@ -3,6 +3,44 @@ entries:
   hermitcrab:
   - annotations:
       artifacthub.io/changes: |
+        - Bump hermitcrab version to v0.1.3
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/seal-io/helm-charts
+        - name: Upstream Project
+          url: https://github.com/seal-io/hermitcrab
+        - name: Company Website
+          url: https://seal.io
+      artifacthub.io/maintainers: |
+        - name: Seal Engineer Team
+          email: engineering@seal.io
+      artifacthub.io/signKey: |
+        fingerprint: 46238A8F45832921944DCD71DD0781A1A4227958
+        url: https://keybase.io/sealio/pgp_keys.asc
+    apiVersion: v2
+    appVersion: v0.1.3
+    created: "2024-01-03T06:00:23.852646137Z"
+    description: A Helm chart for Hermit Crab.
+    digest: 02502cfc58ec05a323ae8b2560cedb61e3f1009c1dc7a9915172ac679588b492
+    home: https://seal.io/
+    icon: https://avatars.githubusercontent.com/u/101077428?v=4
+    keywords:
+    - terraform provider mirror
+    - hermitcrab
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: engineering@seal.io
+      name: Seal Engineer Team
+    name: hermitcrab
+    sources:
+    - https://github.com/seal-io/hermitcrab
+    type: application
+    urls:
+    - https://github.com/seal-io/helm-charts/releases/download/hermitcrab-0.1.3/hermitcrab-0.1.3.tgz
+    version: 0.1.3
+  - annotations:
+      artifacthub.io/changes: |
         - Bump hermitcrab version to v0.1.2
       artifacthub.io/license: Apache-2.0
       artifacthub.io/links: |
@@ -112,4 +150,4 @@ entries:
     urls:
     - https://github.com/seal-io/helm-charts/releases/download/hermitcrab-0.1.0/hermitcrab-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-30T03:30:26.783929143Z"
+generated: "2024-01-03T06:00:23.852661736Z"
