@@ -19,7 +19,7 @@ To install the chart with the release name `my-release`:
 
 ```shell
 helm repo add seal-io https://seal-io.github.io/helm-charts
-helm install my-release seal-io/hermitcrab --version 0.1.3
+helm install my-release seal-io/hermitcrab --version 0.1.4
 ```
 
 Also be able to install from OCI registry:
@@ -28,7 +28,7 @@ Also be able to install from OCI registry:
 # latest version
 helm install my-release oci://ghcr.io/seal-io/helm-charts/hermitcrab
 # with specific version
-helm install my-release oci://ghcr.io/seal-io/helm-charts/hermitcrab --version 0.1.3
+helm install my-release oci://ghcr.io/seal-io/helm-charts/hermitcrab --version 0.1.4
 ```
 
 ## Uninstalling
@@ -70,7 +70,7 @@ For full list of changes please check ArtifactHub [changelog](https://artifacthu
 | hermitcrab.name | string | `"hermitcrab"` | Name of the Hermit Crab server. |
 | hermitcrab.replicas | int | `1` | Number of Hermit Crab Pods to run. |
 | hermitcrab.image.repository | string | `"sealio/hermitcrab"` | Image name. |
-| hermitcrab.image.tag | string | `"v0.1.3"` | Image tag. |
+| hermitcrab.image.tag | string | `"v0.1.4"` | Image tag. |
 | hermitcrab.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | hermitcrab.command | list | `["hermitcrab"]` | Entrypoint command. |
 | hermitcrab.args | list | `["--log-debug","--log-verbosity=4"]` | Entrypoint arguments. |
